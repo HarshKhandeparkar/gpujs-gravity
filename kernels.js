@@ -1,5 +1,5 @@
 const render = gpu.createKernel(
-  function (p1, p2, particle1Params, particle2Params, pixels, coordScaleFactor, pointSize) 
+  function (p1, p2, pixels, coordScaleFactor, pointSize) 
   {
     let out = pixels[this.thread.y][this.thread.x];
     const x = (this.thread.x - this.constants.centerX) / coordScaleFactor;
@@ -7,12 +7,20 @@ const render = gpu.createKernel(
 
     const particle1X = p1[0] / coordScaleFactor;
     const particle1Y = p1[1] / coordScaleFactor;
+    const dist1 = Math.sqrt( // Distance of particle 1 from the current thread
+      Math.pow(particle1X - x, 2) +
+      Math.pow(particle1Y - y, 2)
+    )
 
     const particle2X = p2[0] / coordScaleFactor;
     const particle2Y = p2[1] / coordScaleFactor;
+    const dist2 = Math.sqrt( // Distance of particle 2 from the current thread
+      Math.pow(particle2X - x, 2) +
+      Math.pow(particle2Y - y, 2)
+    )
 
-    if (Math.abs(particle1X - x) < pointSize && Math.abs(particle1Y - y) < pointSize) out = 0.5;
-    if (Math.abs(particle2X - x) < pointSize && Math.abs(particle2Y - y) < pointSize) out = 1;
+    if (dist1 < pointSize) out = 0.5;
+    if (dist2 < pointSize)  out = 1;
 
     return out;
   },

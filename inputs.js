@@ -9,7 +9,7 @@ let dim = 1000, // dimensions
   centerY = dim / 2,
   bg = 0, // backgroundColor: 0 to 1(greyscale)
   color = 1, // color of the point: 0 to 1(greyscale)
-  timeStep = 0.1, // Time Step
+  timeStep = 0.01, // Time Step
   doRender = false,
   rendersPerFrame = 1,
   pi = Math.PI,
@@ -22,8 +22,8 @@ document.getElementById('rend-per-frame').value = rendersPerFrame;
 document.getElementById('pt-size').value = pointSize;
 document.getElementById('coord-scale-factor').value = coordScaleFactor;
 
-const wave1Params = [1, 0, 2]; // Mass, Vx, Vy
-const wave2Params = [80, 0, 0];
+const wave1Params = [100, 0, 0]; // Mass, Vx, Vy
+const wave2Params = [100, 0, 0];
 
-let p1 = [-25, -15]; // Initial Position
+let p1 = [-25, 0]; // Initial Position
 let p2 = [0, 0];

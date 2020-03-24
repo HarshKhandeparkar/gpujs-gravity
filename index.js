@@ -17,16 +17,16 @@ const doDraw = () => {
 
       
       const r = Math.sqrt(
-        (p1[0]- p2[0])*(p1[0] - p2[0]) + 
-        (p2[0] - p2[1])*(p2[0] - p2[1])
-        )
+        Math.pow(p1[0] - p2[0], 2) + 
+        Math.pow(p1[1] - p2[1], 2)
+      )
 
-      const F = G*wave1Params[0]*wave2Params[0] / (r*r);
+      const F = G * wave1Params[0] * wave2Params[0] / (r*r);
       const a1 =  F / wave1Params[0];
-      const a2 =  - F / wave2Params[0];
+      const a2 = - F / wave2Params[0];
 
       const cos = Math.abs(p2[0] - p1[0]) / r;
-      const sin = Math.abs(p2[1] - p2[0]) / r;
+      const sin = Math.abs(p2[1] - p2[1]) / r;
       
       wave1Params[1] += a1 * cos;
       wave1Params[2] += a1 * sin;
@@ -34,7 +34,7 @@ const doDraw = () => {
       wave2Params[1] += a2 * cos;
       wave2Params[2] += a2 * sin;
 
-      renderPixelsTex = render(p1, p2, wave1Params, wave2Params, getTex(blank), coordScaleFactor, pointSize);
+      renderPixelsTex = render(p1, p2, getTex(blank), coordScaleFactor, pointSize);
       
       t += timeStep;
       renders++; // count the rendered frame
